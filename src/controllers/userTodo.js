@@ -5,7 +5,7 @@ const getUserTodoData = (req, res) => {
     statusCode: 200,
     data: { name: "John Doe", age: 30 },
     metadata: {
-      message: "Request successful",
+      message: "Data Retrieve successfully",
     },
   };
 

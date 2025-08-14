@@ -1,6 +1,6 @@
 const express = require("express");
 const fetchTodoRoute = require("./routes/fetchTodoRoute");
-
+const authTokenRoute = require("./routes/authTokenRoute");
 const app = express();
 
 // Middleware for parsing JSON
@@ -8,6 +8,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api", fetchTodoRoute);
+app.use("/auth", authTokenRoute);
 
 app.use("/", (_, res) => {
   const dummyJSON = {
