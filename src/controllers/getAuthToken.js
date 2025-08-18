@@ -8,10 +8,28 @@ const getAuthToken = (req, res) => {
     const token = jwt.sign({ username }, "super_secret_key", {
       expiresIn: "1h",
     });
-    return res.json({ token }); // send to client
+
+    const response = {
+      statusCode: 200,
+      data: {},
+      metadata: {
+        message: "Data Retrieve successfully",
+        accessToken: token,
+      },
+    };
+
+    return res.json(response); // send to client
   }
 
-  res.status(401).json({ error: "Invalid credentials" });
+  const responseError = {
+    statusCode: 401,
+    data: {},
+    metadata: {
+      message: "Invalid credentials",
+    },
+  };
+
+  res.status(401).json(responseError);
 };
 
 module.exports = { getAuthToken };
