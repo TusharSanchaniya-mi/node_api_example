@@ -45,7 +45,7 @@ export const authenticateToken = (
             statusCode: 403,
             data: {},
             metadata: {
-              message: `The token is either invalid or has expired :: [Error] ${err}`,
+              message: `The token is either invalid or has expired.}`,
               requestData: JSON.stringify(req.headers),
               accessToken: token,
             },
@@ -54,6 +54,7 @@ export const authenticateToken = (
           return res.status(403).json(responseError);
         }
 
+        console.log("decoded: ", JSON.stringify(decoded, null, " "));
         (req as any).user = decoded; // Attach decoded payload to request
         next();
       }
