@@ -1,5 +1,9 @@
-const getUserTodoData = (req, res) => {
-  const todoList = [
+import { Request, Response } from "express";
+import { APIResponse, StatusMessage } from "../model/serviceModel/services";
+import { ToDoList } from "../model/TodoList";
+
+const getUserTodoData = (req: Request, res: Response) => {
+  const todoList: ToDoList[] = [
     {
       id: 1,
       title: "Buy groceries",
@@ -122,15 +126,17 @@ const getUserTodoData = (req, res) => {
     },
   ];
 
-  const response = {
+  const response: APIResponse<ToDoList[]> = {
     statusCode: 200,
     data: todoList,
     metadata: {
       message: "Data Retrieve successfully",
+      accessToken: "",
     },
+    statusMessage: StatusMessage.SUCCESS,
   };
 
   res.status(200).json(response);
 };
 
-module.exports = { getUserTodoData };
+export default getUserTodoData;

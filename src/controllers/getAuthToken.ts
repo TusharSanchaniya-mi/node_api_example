@@ -1,6 +1,12 @@
-const jwt = require("jsonwebtoken");
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import {
+  APIResponse,
+  EmptyData,
+  StatusMessage,
+} from "../model/serviceModel/services";
 
-const getAuthToken = (req, res) => {
+export const getAuthToken = (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   // ✅ Check username/password in DB here
@@ -9,27 +15,28 @@ const getAuthToken = (req, res) => {
       expiresIn: "1h",
     });
 
-    const response = {
+    const response: APIResponse<EmptyData> = {
       statusCode: 200,
       data: {},
       metadata: {
         message: "Data Retrieve successfully",
         accessToken: token,
       },
+      statusMessage: StatusMessage.SUCCESS,
     };
 
-    return res.json(response); // send to client
+    return res.json(response);
   }
 
-  const responseError = {
+  const responseError: APIResponse<EmptyData> = {
     statusCode: 401,
     data: {},
     metadata: {
       message: "Invalid credentials",
+      accessToken: null,
     },
+    statusMessage: StatusMessage.FAILED,
   };
 
   res.status(401).json(responseError);
 };
-
-module.exports = { getAuthToken };

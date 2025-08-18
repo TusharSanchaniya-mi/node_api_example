@@ -1,6 +1,7 @@
-const express = require("express");
-const fetchTodoRoute = require("./routes/fetchTodoRoute");
-const authTokenRoute = require("./routes/authTokenRoute");
+import express, { Request, Response } from "express";
+import fetchTodoRoute from "./routes/fetchTodoRoute";
+import authTokenRoute from "./routes/authTokenRoute";
+
 const app = express();
 
 // Middleware for parsing JSON
@@ -10,7 +11,7 @@ app.use(express.json());
 app.use("/api", fetchTodoRoute);
 app.use("/auth", authTokenRoute);
 
-app.use("/", (_, res) => {
+app.use("/", (_: Request, res: Response) => {
   const dummyJSON = {
     statusCode: -101010,
     data: {},
@@ -21,4 +22,4 @@ app.use("/", (_, res) => {
   res.status(200).json(dummyJSON);
 });
 
-module.exports = app;
+export default app;
